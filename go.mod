@@ -1,4 +1,4 @@
-module general-update-server
+module uus
 
 go 1.18
 

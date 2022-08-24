@@ -1,2 +1,3 @@
-# General Update Server
+# Universal Update Server
 
+Software General Update Server

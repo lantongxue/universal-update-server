@@ -1,9 +1,9 @@
 package main
 
 import (
-	"general-update-server/controller"
-	"general-update-server/controller/a/b"
-	"general-update-server/controller/user"
+	"uus/controller"
+	"uus/controller/a/b"
+	"uus/controller/user"
 
 	"github.com/gin-gonic/gin"
 )
