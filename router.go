@@ -27,7 +27,7 @@ func (r *Router) AutoRouter(v interface{}) {
 	ctlType := reflectVal.Elem()
 	controllerFullName := ctlType.Name()
 	controllerName := strings.TrimSuffix(controllerFullName, "Controller")
-	controllerLayer := strings.TrimPrefix(ctlType.PkgPath(), "general-update-server/controller")
+	controllerLayer := strings.TrimPrefix(ctlType.PkgPath(), "uus/controller")
 	if controllerLayer == "" {
 		controllerLayer = "/"
 	}
@@ -43,10 +43,6 @@ func (r *Router) AutoRouter(v interface{}) {
 		}
 
 		requestPath := "/"
-		if controllerName == r.defaultController {
-			requestPath = controllerLayer
-		}
-
 		if controllerName == r.defaultController && methodName == r.defaultAction {
 			requestPath = controllerLayer
 		}
