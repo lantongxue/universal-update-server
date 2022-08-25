@@ -3,6 +3,7 @@ package main
 import (
 	"reflect"
 	"strings"
+	"uus/util"
 
 	"github.com/gin-gonic/gin"
 )
@@ -36,10 +37,10 @@ func (r *Router) AutoRouter(v interface{}) {
 		method := reflectVal.Method(i)
 		// get method parameters count
 		// the http handler has two parameters
-		// number 0 is Controller object
 		if method.Type.NumIn() != 2 {
 			continue
 		}
+		// number 0 is Controller object
 		// number 1 is gin.Context
 		if method.Type.In(1).Elem().String() != "gin.Context" {
 			continue
@@ -57,15 +58,15 @@ func (r *Router) AutoRouter(v interface{}) {
 		}
 
 		if controllerName == r.defaultController && methodName != r.defaultAction {
-			requestPath = controllerLayer + "/" + strings.ToLower(methodName)
+			requestPath = controllerLayer + "/" + strings.ToLower(util.SnakeWithChar(methodName))
 		}
 
 		if controllerName != r.defaultController && methodName == r.defaultAction {
-			requestPath = controllerLayer + "/" + strings.ToLower(controllerName)
+			requestPath = controllerLayer + "/" + strings.ToLower(util.SnakeWithChar(controllerName))
 		}
 
 		if controllerName != r.defaultController && methodName != r.defaultAction {
-			requestPath = controllerLayer + "/" + strings.ToLower(controllerName) + "/" + strings.ToLower(methodName)
+			requestPath = controllerLayer + "/" + strings.ToLower(util.SnakeWithChar(controllerName)) + "/" + strings.ToLower(util.SnakeWithChar(methodName))
 		}
 
 		switch strings.ToUpper(requestMethod) {

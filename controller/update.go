@@ -21,3 +21,7 @@ func (u *UpdateController) Index2() {
 func (u *UpdateController) Post__PUT(ctx *gin.Context) {
 
 }
+
+func (u *UpdateController) PostData(ctx *gin.Context) {
+
+}
