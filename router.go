@@ -34,7 +34,16 @@ func (r *Router) AutoRouter(v interface{}) {
 
 	for i := 0; i < reflectVal.NumMethod(); i++ {
 		method := reflectVal.Method(i)
-
+		// get method parameters count
+		// the http handler has two parameters
+		// number 0 is Controller object
+		if method.Type.NumIn() != 2 {
+			continue
+		}
+		// number 1 is gin.Context
+		if method.Type.In(1).Elem().String() != "gin.Context" {
+			continue
+		}
 		ar := strings.Split(method.Name, "__")
 		methodName := ar[0]
 		requestMethod := "Any"
