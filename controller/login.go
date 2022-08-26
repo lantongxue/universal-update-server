@@ -11,34 +11,38 @@ type LoginController struct{}
 
 func (c *LoginController) Index(ctx *gin.Context) {
 	if ctx.Request.Method == "POST" {
-		account := ctx.PostForm("account")
-		if account == "" {
+		username := ctx.PostForm("username")
+		if username == "" {
 			ctx.JSON(http.StatusOK, gin.H{
-				"error":   http.StatusInternalServerError,
-				"message": "Account cannot be empty",
+				"code":    http.StatusInternalServerError,
+				"message": "Username cannot be empty",
 			})
 			return
 		}
 		password := ctx.PostForm("password")
 		if password == "" {
 			ctx.JSON(http.StatusOK, gin.H{
-				"error":   http.StatusInternalServerError,
+				"code":    http.StatusInternalServerError,
 				"message": "Password cannot be empty",
 			})
 			return
 		}
-		if account != "admin" && password != "admin" {
+		if username != "admin" && password != "admin" {
 			ctx.JSON(http.StatusOK, gin.H{
-				"error":   http.StatusInternalServerError,
-				"message": "Account or Password error",
+				"code":    http.StatusInternalServerError,
+				"message": "Username or Password error",
 			})
 			return
 		}
 		session := sessions.Default(ctx)
 		session.Set("user", "5555")
 		session.Save()
-		ctx.Redirect(http.StatusTemporaryRedirect, "/")
+		ctx.JSON(http.StatusOK, gin.H{
+			"code":    http.StatusOK,
+			"message": "ok",
+			"url":     "/",
+		})
+		return
 	}
-
 	ctx.HTML(http.StatusOK, "login.html", gin.H{})
 }

@@ -129,3 +129,9 @@ func (r *Router) AutoRouter(v interface{}) {
 		}
 	}
 }
+
+func (r *Router) Register(routers map[string]interface{}) {
+	for _, controller := range routers {
+		r.AutoRouter(controller)
+	}
+}
