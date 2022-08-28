@@ -2,6 +2,7 @@ package main
 
 import (
 	"uus/config"
+	"uus/util"
 
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
@@ -10,8 +11,8 @@ import (
 
 func main() {
 	r := gin.Default()
-
-	store := cookie.NewStore([]byte("123456"))
+	key := util.RandomKey()
+	store := cookie.NewStore([]byte(key))
 	r.Use(sessions.Sessions("uus", store))
 
 	r.Static("/static", "./public")
